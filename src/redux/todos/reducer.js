@@ -1,4 +1,4 @@
-import { ADDED, COLORSELECTED, DELETED, TOGGLED } from "./actionTypes";
+import { ADDED, ALLCOMPLETED, COLORSELECTED, DELETED, TOGGLED } from "./actionTypes";
 import { initialState } from "./initialState";
 
 function nextTodoId = (todos) =>{
@@ -42,7 +42,15 @@ const reducer = (state = initialState, action) =>{
             })
 
         case DELETED:
-            return state.filter(todo => todo.id !== todoId) 
+            return state.filter(todo => todo.id !== action.payload)
+            
+        case ALLCOMPLETED:
+            return state.map(todo =>{
+                return {
+                    ...todo,
+                    completed: true
+                }
+            })  
     
         default:
             break;

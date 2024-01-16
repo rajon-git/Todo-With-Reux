@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import cancelImage from "../assets/images/cancel.png";
-import { toggled } from "../redux/todos/actions";
+import { colorSelected, deleted, toggled } from "../redux/todos/actions";
 
 export default function Todo({todo}) {
     const dispatch = useDispatch();
@@ -8,6 +8,14 @@ export default function Todo({todo}) {
     const {id,text,completed,color} = todo;
     const handleStatusChange=(todoId)=>{
           dispatch(toggled(todoId));
+    }
+
+    const handleColorChnage=(todoId, color)=>{
+          dispatch(colorSelected(todoId, color))
+    }
+
+    const handleDelete = (todoId)=>{
+        dispatch(deleted(todoId));
     }
 
     return (
@@ -31,15 +39,25 @@ export default function Todo({todo}) {
                 {text}
             </div>
 
-            <div className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-green-500 hover:bg-green-500 ${color === "green" && '  bg-green-500'}`} ></div>
-            <div className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-yellow-500 hover:bg-yellow-500 ${color === "yellow" && ' bg-yellow-500'}`} ></div>
-            <div className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-red-500 hover:bg-red-500 ${color === "red" && ' bg-red-500'}`} ></div>
+            <div 
+            className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-green-500 hover:bg-green-500 ${color === "green" && '  bg-green-500'}`} 
+            onClick={()=>handleColorChnage(id, "green")}
+            ></div>
+            <div 
+            className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-yellow-500 hover:bg-yellow-500 ${color === "yellow" && ' bg-yellow-500'}`} 
+            onClick={()=>handleColorChnage(id, "yellow")}
+            ></div>
+            <div 
+            className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-red-500 hover:bg-red-500 ${color === "red" && ' bg-red-500'}`} 
+            onClick={()=>handleColorChnage(id, "red")}
+            ></div>
 
 
             <img
                 src={cancelImage}
                 className="flex-shrink-0 w-4 h-4 ml-2 cursor-pointer"
                 alt="Cancel"
+                onClick={()=>handleDelete(id)}
             />
         </div>
     );

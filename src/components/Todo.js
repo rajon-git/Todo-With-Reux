@@ -1,8 +1,14 @@
+import { useDispatch } from "react-redux";
 import cancelImage from "../assets/images/cancel.png";
+import { toggled } from "../redux/todos/actions";
 
 export default function Todo({todo}) {
+    const dispatch = useDispatch();
 
     const {id,text,completed,color} = todo;
+    const handleStatusChange=(todoId)=>{
+          dispatch(toggled(todoId));
+    }
 
     return (
         <div className="flex justify-start items-center p-2 hover:bg-gray-100 hover:transition-all space-x-4 border-b border-gray-400/20 last:border-0">
@@ -10,6 +16,7 @@ export default function Todo({todo}) {
                 <input
                     type="checkbox"
                     checked = {completed}
+                    onChange={()=>handleStatusChange(id)}
                     className="opacity-0 absolute rounded-full"
                 />
                {completed && <svg
@@ -24,11 +31,10 @@ export default function Todo({todo}) {
                 {text}
             </div>
 
-            <div className="flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-green-500 hover:bg-green-500 bg-green-500"></div>
+            <div className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-green-500 hover:bg-green-500 ${color === "green" && '  bg-green-500'}`} ></div>
+            <div className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-yellow-500 hover:bg-yellow-500 ${color === "yellow" && ' bg-yellow-500'}`} ></div>
+            <div className={`flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-red-500 hover:bg-red-500 ${color === "red" && ' bg-red-500'}`} ></div>
 
-            <div className="flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-yellow-500 hover:bg-yellow-500"></div>
-
-            <div className="flex-shrink-0 h-4 w-4 rounded-full border-2 ml-auto cursor-pointer border-red-500 hover:bg-red-500"></div>
 
             <img
                 src={cancelImage}

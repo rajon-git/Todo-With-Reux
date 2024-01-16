@@ -1,13 +1,15 @@
-const initialState = [{
-    id:1,
-    text: 'learn react js',
-    completed:true
-},
-{
-    id:2,
-    text: 'learn react redux js',
-    completed:false,
-    color: "red",
-}]
+const initialState = [
+    {
+        id: 1,
+        text: "Learn React JS",
+        completed: true,
+    },
+    {
+        id: 2,
+        text: "Learn Redux",
+        completed: false,
+        color: "red",
+    },
+];
 
 export default initialState;

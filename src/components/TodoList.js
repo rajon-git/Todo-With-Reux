@@ -11,14 +11,23 @@ export default function TodoList() {
             .filter(todo=>{
                 const {status} = filters;
                 switch (status) {
-                   
-                    
-                case 'Incompleted':
+                case 'Complete':
+                    return todo.completed; 
+
+                case 'Incomplete':
                     return !todo.completed;
                 
                     default:
                         return true;
                 }
+            })
+            .filter(todo=>{
+                const {colors} = filters;
+                if(colors.length> 0)
+                {
+                    return colors.includes(todo?.color)
+                }
+                return true;
             })
             .map((todo)=> (<Todo todo={todo} key={todo.id}/>))}
         </div>

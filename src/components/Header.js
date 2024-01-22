@@ -3,7 +3,7 @@ import tickImage from "../assets/images/double-tick.png";
 import noteImage from "../assets/images/notes.png";
 import plusImage from "../assets/images/plus.png";
 import { useDispatch } from "react-redux";
-import { added, allCompleted } from "../redux/todos/actions";
+import { added, allCompleted, clearCompleted } from "../redux/todos/actions";
 
 export default function Header() {
     const dispatch= useDispatch();
@@ -22,6 +22,11 @@ export default function Header() {
     const completeall =(e)=>{
         e.preventDefault();
         dispatch(allCompleted())
+    }
+
+    const clearAll =(e)=>{
+        e.preventDefault();
+        dispatch(clearCompleted())
     }
     return (
         <div>
@@ -45,7 +50,7 @@ export default function Header() {
                     <img className="w-4 h-4" src={tickImage} alt="Complete" />
                     <span>Complete All Tasks</span>
                 </li>
-                <li className="cursor-pointer">Clear completed</li>
+                <li className="cursor-pointer" onClick={clearAll}>Clear completed</li>
             </ul>
         </div>
     );
